@@ -33,5 +33,40 @@ sex_group = df.groupby(["Sex"])
 drugsex_group = df.groupby(["Drug Regimen","Sex"])
 drugID_group = df.groupby(["Drug Regimen","Mouse ID"])
 
+# STEP 5: Plot the tumor size. 
 
-                                  
+tumor_summary = pd.DataFrame({
+  "Tumor Mean":drug_group['Tumor Volume (mm3)'].mean(),
+  "Tumor Median":drug_group['Tumor Volume (mm3)'].median(),
+  "Tumor Variance":drug_group['Tumor Volume (mm3)'].var(),
+  "Tumor Std Dev":drug_group['Tumor Volume (mm3)'].std(),
+  "Tumor SEM":drug_group['Tumor Volume (mm3)'].sem(),
+  })
+ tumor_summary
+ 
+ # This will display the stats of the tumor summary. 
+
+# STEP 6: Generate a plot using pyplot. 
+
+plt.figure(figsize=(10,6))
+drug_count = drug_group['Mouse ID'].count()
+# This line is saying count the number of mice that have this drug in them and it's using the drug group that has grouped the drugs already. 
+drug_count.plot(kind="bar", label='Observation Count')
+# This line plots the bar graph as the count.
+plt.ylim(125,250)
+plt.ylabel("Number of Observations")
+# Y axis. 
+plt.title("Number of Observations for Each Drug Regimen")
+# Title. 
+plt.legend()
+# Legend (obeservation count)
+plt.show()
+# Show graph. 
+
+# STEP 7: Generate a plot using pandas.
+
+# STEP 8: Generate a pie plot for male and female.    
+
+count if male
+count if female
+set up pie graph labels and what not
