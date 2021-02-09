@@ -1,38 +1,37 @@
 # matplotlib-challenge
-# First setup dependencies and and libraries. 
+
+# STEP 1: First setup dependencies and and libraries. 
 
 # Import libraries. 
 import pandas as pd
+# Pandas is a common library that is used for data analysis and manipulation. 
 import numpy as np
+# Numpy is a common library used for working with arrays. Arrays being an object that stores multiple items of the same type. 
 import matplotlib.pyplot as plt 
+# Matplotlib.pyplot is used for data visualization. 
+import scipy.stats as sp
+# Scipy.stats is used for basic statistical analysis. 
+import matplotlib.axes as ax
+# matplotlib.axes is used for more visualization. 
+from scipy.stats import linregress
+# Need this for the linear regression question. 
 
-# Load in files. 
-file_to_load = "Resources/study.results.csv"
-study_results = pd.read_csv(file_to_load)
+# STEP 2: Load in files using Pandas. 
 
-# Matplotlib is another library that is essentially used for visualizing data. 
-# First, clean data in Excel. 
+mouse_data = pd.read_csv("data/mouse_metadata.csv"
+study_results = pd.read_csv("data/study_results.csv")
 
-# TASK ONE: Generate a summary statistics table consisting of the mean, median, variance, standard deviation, and SEM of the tumor volume for each drug regimen.
+# STEP 3: Merge together the two data files because the drug regimen needs to be associated with the tumor volume. 
+combined_df = pd.merge (mouse_data, study_results, on="Mouse ID")
+# The merging function goes pd.merge(file1, file2,on="column name")
 
-# STEP ONE: Find the mean, median, variance, standard deviation, and SEM of the tumor volume for each regimen. This will be taken from the study results data.
+# STEP 4: Group by drug regimen, mouse ID, sex, drug regimen and sex, drug regimen and mouse ID. 
 
-mean_tumor_volume = study_results:["Tumor Volume (mm3)"].mean()
-median_tumor_volume = study_results:["Tumor Volume (mm3)"].median()
-std_tumor_volume = study_results:["Tumor Volume (mm3)"].std()
-# SEM is the STD /sqrt of sample size
-sample_size_tumor = study_results:["Tumor Volume (mm3)"].count()
-SEM_tumor_volume = std_tumor_volume / sample_size_tumor 
+drug_group = df.groupby(["Drug Regimen"])
+ID_group = df.groupby(["Mouse ID"])
+sex_group = df.groupby(["Sex"])
+drugsex_group = df.groupby(["Drug Regimen","Sex"])
+drugID_group = df.groupby(["Drug Regimen","Mouse ID"])
 
-# STEP TWO: Make data frame of the above data. 
 
-tumor_size_summary = pd.DataFrame({"Mean":[mean_tumor_volume], "Median":[median_tumor_volume], "Standard Deviation":[std_tumor_volume], "SEM":[SEM_tumor_volume]})
-
-# STEP THREE: Format with two decimal places. 
-
-tumor_size_summary.style.format({"Mean":"{:,.2f}",
-                                  "Median":"${:,.2f}",
-                                  "Standard Deviation":"${:,.2f}",
-                                  "SEM":"${:,.2f}"})
-                                  
                                   
