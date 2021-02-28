@@ -321,3 +321,26 @@ plt.show()
 plt.clf()
 plt.cla()
 plt.close()
+
+# Calculate the correlation coefficient and linear regression model for mouse weight and average tumor volume for the Capomulin regimen
+mouse_weight = avg_capo.iloc[:,0]
+avg_tumor_volume = avg_capo.iloc[:,1]
+# Compute the Pearson correlation coefficient between "Mouse Weight" and "Average Tumor Volume"
+correlation = st.pearsonr(mouse_weight,avg_tumor_volume)
+print(f"The correlation between both factors is {round(correlation[0],2)}")
+
+# import linregress
+from scipy.stats import linregress
+
+# Add the lineear regression equation and line to the scatter plot
+x_values = avg_capo["Weight (g)"]
+y_values = avg_capo["Average Volume"]
+(slope, intercept, rvalue, pvalue, stderr) = linregress(x_values, y_values)
+regress_values = x_values * slope + intercept
+line_eq = "y = " + str(round(slope,2)) + "x + " + str(round(intercept,2))
+plt.scatter(x_values, y_values)
+plt.plot(x_values,regress_values,"r-")
+plt.annotate(line_eq,(6,10),fontsize=15,color="red")
+plt.xlabel("Mouse Weight")
+plt.ylabel("Average Tumor Volume")
+plt.show()
