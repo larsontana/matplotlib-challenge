@@ -18,7 +18,7 @@ from scipy.stats import linregress
 
 # STEP 2: Load in files using Pandas. 
 
-mouse_data = pd.read_csv("data/mouse_metadata.csv"
+mouse_data = pd.read_csv("data/mouse_metadata.csv")
 study_results = pd.read_csv("data/study_results.csv")
 
 # STEP 3: Merge together the two data files because the drug regimen needs to be associated with the tumor volume. 
